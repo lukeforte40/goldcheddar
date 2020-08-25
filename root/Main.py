@@ -48,6 +48,9 @@ def load_user(user_id):
 def before_request():
     session.permanent = True
 
+from waitress import serve
+serve(wsgiapp, listen='*:8080')
+
 #models
 
 class posts(db.Model):
