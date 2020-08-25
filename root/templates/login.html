@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminbase.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+    <main>
+        <a href="/">Back</a>
+        <form method="POST" name="login">
+            {%if error%}
+                <p>Error: {{error}}</p>
+            {%endif%}
+            <input type="text" name="username" id="username" placeholder="username">
+            <input type="password" name="password" id="password" placeholder="password">
+            <input type="hidden" name="type" id="type" value="login">
+            <button type="submit">Login</button>
+        </form>
+    </main>
+</body>
+</html>

@@ -1,0 +1,10 @@
+main > div:hover {
+    cursor: pointer;
+}
+form{
+    display: none;
+    flex-direction: column;
+}
+.addBtn:hover{
+    cursor: pointer;
+}

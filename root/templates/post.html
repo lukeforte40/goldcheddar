@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{post.title}}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='post.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Gold Cheddar</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/posts">Blog</a>
+            <input type="search" placeholder="Search">
+        </nav>
+    </header>
+    <main>
+        <h1 id="title">{{post.title}}</h1>
+        <div id="postHead">
+            <div id="left">
+                <h4 id="author">{{post.author}}</h4>
+                <h4 id="pubDate">{{post.pub_date.strftime('%m-%d-%Y')}}</h4>
+            </div>
+            <div id="right">
+                <p id="description">{{post.description}}</p>
+            </div>
+        </div>
+        <div id="content">
+            {{post.content|safe}}
+        </div>
+    </main>
+    <footer>
+        
+    </footer>
+</body>
+</html>

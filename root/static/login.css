@@ -1,0 +1,28 @@
+main > a{
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px;
+    background-color: lightgray;
+}
+form{
+    width: 50vw;
+    margin: auto;
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #ebedef;
+    border-radius: 20px;
+}
+form > input{
+    width: 40vw;
+    margin: 2.5vh auto;
+}
+form > p{
+    text-align: center;
+}
+ form > button{
+    width: 15vw;
+    margin: 2.5vh auto;
+}

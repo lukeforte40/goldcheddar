@@ -1,0 +1,145 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+header{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 80vw;
+}
+header > a{
+    display: inline-block;
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    margin: 10px;
+    background-color: lightgray;
+    width: fit-content;
+}
+a{
+    display: inline-block;
+    color: black;
+}
+#view{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 75vh;
+    margin: auto; 
+    overflow: hidden;
+}
+nav{
+    display: flex;
+    flex-direction: column;
+    margin: auto 0 auto 1vw;
+    max-width: 30vw;
+}
+nav > button{
+    margin: 1vh auto;
+    font-size: 20px;
+    text-align: center;
+    border: none;
+    background-color: white;
+}
+nav > button:hover{
+    cursor: pointer;
+}
+main{
+    height: 100%;
+    overflow: scroll;
+    min-width: 65vw;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin: auto 1vw;
+}
+main::-webkit-scrollbar{
+    display: none;
+}
+#addUsers, #viewPosts, #makePost{
+    display: none;
+}
+#users > a {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    width: 5vw;
+    margin: 0 5vw;
+    text-align: center;
+}
+.user{
+    max-width: 200px;
+    margin: auto;
+    margin-top: 10vh;
+    border-radius: 10px;
+    border: solid black 1px;
+    padding: 2.5vh 2.5vw;
+}
+.username{
+    display: flex;
+    flex-direction: row;
+}
+.username > p, .username > a{
+    margin: auto;
+}
+#userForm{
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    width: 80%;
+    margin: 20% auto;
+}
+form > input{
+    width: 60%;
+    margin: auto;
+    margin-bottom: 4px;
+}
+form > button{
+    width: 20%;
+    margin: auto;
+}
+#postStyles{
+    height: 100%;
+    width: 100%;
+    margin: 10vh auto;
+}
+.selectors{
+    margin: 5px auto;
+    width: 60%;
+    height: 30%;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.selectors:hover{
+    cursor: pointer;
+}
+.forms{
+    display: none;
+    flex-direction: column;
+    text-align: center;
+}
+.forms > div{
+    margin: 4px auto;
+}
+.forms > div > label{
+    margin-right: 2px;
+}
+.forms > div > div{
+    margin: 4px auto;
+}
+.forms > div > div > label{
+    margin-right: 2px;
+}
+.addBtn{
+    margin-bottom: 4px;
+}
+.addBtn:hover{
+    cursor: pointer;
+}
