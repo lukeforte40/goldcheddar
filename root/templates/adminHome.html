@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='adminbase.css') }}">
+</head>
+<body>
+    <header>
+        <a href="/logout">Logout</a>
+    </header>
+    <div id="view">
+        <nav>
+            <button onclick="openTab('users')">Users</button>
+            <button onclick="openTab('addUsers')">Add User</button>
+            <button onclick="openTab('viewPosts')">View Posts</button>
+            <button onclick="openTab('makePost')">Make New Post</button>
+        </nav>
+        <main>
+            <div id="users" class="tabs">
+                {% for user in users %}
+                    <div class="user">
+                        <div class="username">
+                            <p>{{user.username}}</p>
+                            <a href="/admin/users/remove/{{user.username}}">Delete</a>
+                        </div>
+                    </div>
+                {% endfor %}    
+            </div>
+            <div id="addUsers" class="tabs">
+                <form method="POST" name="addUser" id="userForm">
+                    {% if error %}
+                        <p id="error">Error: {{error}}.</p>
+                    {% endif %}
+                    <input type="hidden" name="type" class="type" value="addUser">
+                    <input type="text" name="username" id="username" placeholder="Username">
+                    <input type="password" name="password" id="password" placeholder="Password">
+                    <input type="password" name="passwordConf" id="passwordConf" placeholder="Password Confirmation">
+                    <button type="submit">Add</button>
+                </form>        
+            </div>
+            <div id="viewPosts" class="tabs">
+                <div id="leftArrow" class="arrow" onclick="plusSlides(-1)">
+                    <p>&#10094</p>
+                </div>
+                <div id="posts">
+                    {% for x in allposts %}
+                        <a href="/admin/posts/{{x.id}}" class="postLink">
+                            <div class="postDiv">
+                                <img src="{{ url_for('static', filename= x.banner) }}" class="banner">
+                                <div class="info">
+                                <div class="data">
+                                    <h3>{{x.title}}</h3>
+                                    <p>{{x.author}}</p>
+                                </div>
+                                <div class="desc">
+                                    <p>{{x.description}}</p>
+                                </div>
+                                </div>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+                <div id="rightArrow" class="arrow" onclick="plusSlides(1)">
+                    <p>&#10095</p>
+                </div>
+            </div>
+            <div id="makePost" class="tabs">
+                <div id="postStyles">
+                    <div id="textSel" class="selectors" onclick="show('text')">
+                        <h3>Text post 1</h3>
+                        <p>A simple text based post, with a banner, and 1 additional image.</p>
+                    </div>
+                    <div id="videoSel" class="selectors" onclick="show('video')">
+                        <h3>Video Based Post With Text Description</h3>
+                        <p>A video based post with a text descrition underneath.</p>
+                    </div>
+                    <div id="dynamicTextSel" class="selectors" onclick="show('dynamic')">
+                        <h3>Dynamic Post</h3>
+                        <p>A simple post with no default content type.</p>
+                        <p>Supports video, image and text.</p>
+                    </div>
+                </div>
+                <form method="POST" id="text" class="forms" enctype="multipart/form-data">
+                    <input type="hidden" name="formType" value="text">
+                    <input type="hidden" name="type" class="type" value="post">
+                    <div>
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" required>
+                    </div>
+                    <div>
+                        <label for="pubDate">Publish Date:</label>
+                        <input type="date" name="pubDate" value="{{date}}" required>
+                    </div>
+                    <div>
+                        <label for="author">Author:</label>
+                        <input type="text" name="author" required>
+                    </div>
+                    <div>
+                        <label for="banner">Banner:</label>
+                        <input type="file" name="banner" class="bannerinp" required>
+                    </div>
+                    <div>
+                        <label for="description">Description</label>
+                        <textarea name="description" class="descriptionTA" cols="30" rows="1" placeholder="Max length: 256 Characters"></textarea required>
+                    </div>
+                    <div>
+                        <Label for="category">Category:</Label>
+                        <select name="category" class="category">
+                            <option value="stocks">Stocks</option>
+                            <option value="passiveinc">Passive Income</option>
+                            <option value="activeinc">Active Income</option>
+                            <option value="incgrowth">Income Growth</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="imagein">Image:</label>
+                        <input type="file" name="imagein" id="img" required>
+                    </div>
+                    <div id="content1">
+                        <div id = "p1div">
+                            <label for="p1">Paragraph 1:</label>
+                            <textarea name="p1" id="par1" cols="30" rows="1" required></textarea>
+                        </div>
+                    </div>
+                    <p id="addP" class="addBtn" onclick="add('p')">Add paragraph</p>
+                    <button type="submit">Submit</button>
+                </form>
+                <form method="POST" id="video" class="forms" enctype="multipart/form-data">
+                    <input type="hidden" name="formType" value="vid">
+                    <input type="hidden" name="type" class="type" value="post">
+                    <div>
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" required>
+                    </div>
+                    <div>
+                        <label for="pubDate">Publish Date:</label>
+                        <input type="date" name="pubDate" value="{{date}}" required>
+                    </div>
+                    <div>
+                        <label for="author">Author:</label>
+                        <input type="text" name="author" required>
+                    </div>
+                    <div>
+                        <label for="banner">Banner:</label>
+                        <input type="file" name="banner" class="bannerinp" required>
+                    </div>
+                    <div>
+                        <label for="description">Description:</label>
+                        <textarea name="description" class="descriptionTA" cols="30" rows="1" placeholder="Max length: 256 Characters" required></textarea>
+                    </div>
+                    <div>
+                        <Label for="category">Category:</Label>
+                        <select name="category" class="category">
+                            <option value="stocks">Stocks</option>
+                            <option value="passiveinc">Passive Income</option>
+                            <option value="activeinc">Active Income</option>
+                            <option value="incgrowth">Income Growth</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="video">Video:</label>
+                        <input type="file" name="video" id="vid" required>
+                    </div>
+                    <div>
+                        <label for="p1">Video Description</label>
+                        <textarea name="p1" id="vidDesc" cols="30" rows="1" placeholder="Max length: 256 Characters" required></textarea>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+                <form method="POST" id="dynamic" class="forms" enctype="multipart/form-data">
+                    <input type="hidden" name="formType" value="dyn">
+                    <input type="hidden" name="type" class="type" value="post">
+                    <div>
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" required>
+                    </div>
+                    <div>
+                        <label for="pubDate">Publish Date:</label>
+                        <input type="date" name="pubDate" value="{{date}}" required>
+                    </div>
+                    <div>
+                        <label for="author">Author:</label>
+                        <input type="text" name="author" required>
+                    </div>
+                    <div>
+                        <label for="banner">Banner:</label>
+                        <input type="file" name="banner" class="bannerinp" required>
+                    </div>
+                    <div>
+                        <label for="description">Description:</label>
+                        <textarea name="description" class="descriptionTA" cols="30" rows="1" placeholder="Max length: 256 Characters" required></textarea>
+                    </div>
+                    <div>
+                        <Label for="category">Category:</Label>
+                        <select name="category" class="category">
+                            <option value="stocks">Stocks</option>
+                            <option value="passiveinc">Passive Income</option>
+                            <option value="activeinc">Active Income</option>
+                            <option value="incgrowth">Income Growth</option>
+                        </select>
+                    </div>
+                    <div id="content2">
+                        
+                    </div>
+                    <div onclick="add('pDyn')" class="addBtn">
+                        <p>Add Paragraph </p>
+                    </div>
+                    <div class="addBtn" onclick="add('i')">
+                        <p>Add Image</p>
+                    </div>
+                    <div class="addBtn" onclick="add('v')">
+                        <p>Add Video</p>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>        
+            </div>
+        </main>
+    </div>
+</body>
+<script type=text/javascript src="{{ url_for('static', filename='adminHome.js') }}"></script>
+</html>

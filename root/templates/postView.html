@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='postview.css') }}">
+</head>
+<body>
+    <header>
+        <a href="/admin">Home</a>
+        <a href="/admin/posts">Posts</a>
+        <a href="/logout">Logout</a>
+    </header>
+    <main>
+        <a href="{{post.id}}/delete">Delete</a>
+        <h1 id="title">{{post.title}}</h1>
+        <div id="postHead">
+            <div id="left">
+                <h4 id="author">{{post.author}}</h4>
+                <h4 id="pubDate">{{post.pub_date.strftime('%m-%d-%Y')}}</h4>
+            </div>
+            <div id="right">
+                <p id="description">{{post.description}}</p>
+            </div>
+        </div>
+        <div id="content">
+            {{post.content|safe}}
+        </div>
+    </main>
+</body>
+</html>

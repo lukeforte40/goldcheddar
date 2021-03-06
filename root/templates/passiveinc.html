@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passive Income</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+</head>
+<body>
+    <a href="/" id="headerLink"><header>
+        <h1>Gold Cheddar</h1>
+    </header></a>
+        <div id="view">
+            <div id="leftArrow" class="arrow" onclick="plusSlides(-1)">
+                <p>&#10094</p>
+            </div>
+            <div id="posts">
+                {% for x in allposts %}
+                    <a href="/incomeGrowth/passiveIncome/{{x.id}}" class="postLink">
+                        <div class="postDiv">
+                            <img src="{{ url_for('static', filename= x.banner) }}" class="banner">
+                            <div class="info">
+                            <div class="data">
+                                <h2>{{x.title}}</h2>
+                                <p>{{x.author}}</p>
+                            </div>
+                            <div class="desc">
+                                <p>{{x.description}}</p>
+                            </div>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+            <div id="rightArrow" class="arrow" onclick="plusSlides(1)">
+                <p>&#10095</p>
+            </div>
+
+        </div>
+    <footer>
+        
+    </footer>
+</body>
+<script src="{{ url_for('static', filename='slides.js') }}"></script>
+</html>
