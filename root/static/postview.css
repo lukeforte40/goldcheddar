@@ -1,15 +1,58 @@
 header{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    width: 90%;
+    margin:auto;
+}
+header > a{
+    margin: auto;
+    padding: 20px;
+    border-radius: 20px;
+}
+header > a:hover{
+    border: 1px solid black;
 }
 main{
     margin-top: 15vh;
 }
-main > a {
+main > a:first-child {
+    display: block;
     border: 1px solid black;
     border-radius: 10px;
     padding: 10px;
     width: 5vw;
-    margin: 0 5vw;
+    margin: 5px 10px;
     text-align: center;
+}
+main{
+    width: 100vw;
+    margin: 0;
+}
+#title{
+    background-color: transparent;
+}
+#postHead{
+    min-height: 10%;
+    display: flex;
+    flex-direction: row;
+}
+#content{
+    text-align: center;
+    margin-top: 2.5vh;
+}
+#content >img, #vid{
+    max-width: 40vw;
+    margin-right: 5vw;
+    max-height: 60vh;
+    float: right;
+}
+#content > p:first-child{
+    float: left;
+    max-width: 40vw;
+    max-height: 60vh;
+    margin: auto;
+    margin-left: 5vw;
+}
+#postHead > div{
+    margin: auto;
 }

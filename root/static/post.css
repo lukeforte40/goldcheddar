@@ -1,0 +1,32 @@
+main{
+    width: 100vw;
+    margin: 0;
+}
+#title{
+    background-color: transparent;
+}
+#postHead{
+    min-height: 10%;
+    display: flex;
+    flex-direction: row;
+}
+#content{
+    text-align: center;
+    margin-top: 2.5vh;
+}
+#content >img, #vid{
+    max-width: 40vw;
+    margin-right: 5vw;
+    max-height: 60vh;
+    float: right;
+}
+#content > p:first-child{
+    float: left;
+    max-width: 40vw;
+    max-height: 60vh;
+    margin: auto;
+    margin-left: 5vw;
+}
+#postHead > div{
+    margin: auto;
+}

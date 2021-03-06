@@ -3,6 +3,9 @@ var pDNum = 1;
 var iNum = 1;
 var vNum = 1;
 var pos = 1;
+var slideIndex = 0;
+var posts = document.getElementsByClassName('aPost');
+showSlide(slideIndex);
 
 function openTab(tab){
     var tabs = document.getElementsByClassName('tabs')
@@ -10,6 +13,9 @@ function openTab(tab){
         tabs[i].style.display = 'none';
     }
     document.getElementById(tab).style.display = 'block';
+    if (tab == 'viewPosts'){
+        document.getElementById(tab).style.display = 'flex';
+    }
     elements = document.getElementsByClassName('forms')
     if (tab == 'makePost') {
         for (var i = 0;i<elements.length;i+=1){
@@ -103,3 +109,39 @@ function add(inType){
     return inType;
 }
 
+function plusSlides(n) {
+    console.log(n)
+    console.log(posts.length - 1)
+    if (slideIndex >= 0 && slideIndex < posts.length){
+        slideIndex += n;
+        if (slideIndex < 0){
+            slideIndex = 0;
+        }
+        if (slideIndex == posts.length ){
+            slideIndex -=1;
+        }
+    }
+    console.log(slideIndex)
+    showSlide(slideIndex)
+
+}
+
+function showSlide(n) {
+    var i;
+    if (n > 0){
+        posts[n - 1].style.display = 'none';
+    }
+    posts[n].style.display = 'block';
+    if(n + 1 < posts.length - 1){
+        posts[n + 1].style.display = 'block';
+        if(n + 2 < posts.length - 1){
+            posts[n + 2].style.display = 'block';
+            if(n + 3 < posts.length - 1){
+                posts[n + 3].style.display = 'block';
+                if(n + 4 < posts.length - 1){
+                    posts[n + 4].style.display = 'none';
+                }
+            }
+        }
+    }
+}

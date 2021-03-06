@@ -8,15 +8,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='post.css') }}">
 </head>
 <body>
-    <header>
+    <a href="/" id="headerLink"><header>
         <h1>Gold Cheddar</h1>
-        <nav>
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/posts">Blog</a>
-            <input type="search" placeholder="Search">
-        </nav>
-    </header>
+    </header></a>
     <main>
         <h1 id="title">{{post.title}}</h1>
         <div id="postHead">

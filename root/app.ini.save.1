@@ -1,0 +1,13 @@
+[uwsgi]
+module = wsgi:application
+
+master = true
+processes = 4
+plugins = python3
+#location of log files
+logto = /var/log/uwsgi/.log
+
+socket = main.sock
+chmod-socket = 660
+
+die-on-term = true

@@ -150,35 +150,6 @@ main > div > a {
     margin: 10% auto;
     font-size: large;
 }
-#content{
-    text-align: center;
-    margin-top: 5vw;
-}
-#content >img{
-    max-width: 40vw;
-    margin-right: 5vw;
-    max-height: 60vh;
-    float: right;
-}
-#content > p:first-child{
-    float: left;
-    max-width: 40vw;
-    max-height: 60vh;
-    margin: auto;
-    margin-left: 5vw;
-}
-#postHead{
-    display: flex;
-    flex-direction: row;
-}
-#postHead > div:first-child{
-    margin: auto;
-    margin-left: 5vw;
-}
-#postHead > div{
-    margin: auto;
-    margin-left: 5vw;
-}
 footer{
     height: 10vh;
 }

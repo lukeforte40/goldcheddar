@@ -16,11 +16,12 @@ ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4', 'mov', 'wmv', '
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = b'1\x96\x89\x16aR+JAr\xe1\xa8\x10ZI}'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://jwkqpemy_gc_admin:qqRj2k~Et~e@@50.87.199.84:3306/jwkqpemy_goldcheddar'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://lukeraunak:lukeraunak@127.0.0.1:3306/goldcheddardb'
 app.permanent_session_lifetime = timedelta(minutes=30)
 
+
 engine = create_engine(
-    'mysql+mysqlconnector://jwkqpemy_gc_admin:qqRj2k~Et~e@@50.87.199.84:3306/jwkqpemy_goldcheddar', pool_recycle=3600
+ 'mysql+mysqlconnector://lukeraunak:lukeraunak@127.0.0.1:3306/goldcheddardb'
 )
 Sesh = sessionmaker()
 
@@ -47,9 +48,6 @@ def load_user(user_id):
 @app.before_request
 def before_request():
     session.permanent = True
-
-from waitress import serve
-serve(wsgiapp, listen='*:8080')
 
 #models
 
@@ -150,6 +148,11 @@ def method_name():
     allposts = posts.query.filter(posts.pub_date <= today, posts.category == 'stocks')
     return render_template('stocks.html', allposts = allposts)
 
+@app.route('/moneyManagement/investing/stocks/<postId>')
+def stockPosts(postId):
+    post = sesh.query(posts).filter(posts.id == postId).first()
+    return render_template('post.html', post = post)
+
 @app.route('/incomeGrowth')
 def incomeGrowth():
    return render_template('incgrow.html')
@@ -160,17 +163,32 @@ def passiveIncome():
     allposts = posts.query.filter(posts.pub_date <= today, posts.category == 'passiveinc')
     return render_template('passiveinc.html', allposts = allposts)
 
+@app.route('/incomeGrowth/passiveIncome/<postId>')
+def passiveincPosts(postId):
+    post = sesh.query(posts).filter(posts.id == postId).first()
+    return render_template('post.html', post = post)
+
 @app.route('/incomeGrowth/activeIncome')
 def activeIncome():
     today = datetime.date.today()
     allposts = posts.query.filter(posts.pub_date <= today, posts.category == 'activeinc')
     return render_template('activeinc.html', allposts = allposts)
 
+@app.route('/incomeGrowth/activeIncome/<postId>')
+def activeincPosts(postId):
+    post = sesh.query(posts).filter(posts.id == postId).first()
+    return render_template('post.html', post = post)
+
 @app.route('/incomeGrowth/incgrowth')
 def incgrowth():
     today = datetime.date.today()
     allposts = posts.query.filter(posts.pub_date <= today, posts.category == 'incgrowth')
     return render_template('incgrowposts.html', allposts = allposts)
+
+@app.route('/incomeGrowth/incgrowth/<postId>')
+def incgrowPosts(postId):
+    post = sesh.query(posts).filter(posts.id == postId).first()
+    return render_template('post.html', post = post)
 
 # admin pages
 
@@ -285,19 +303,15 @@ def admin():
 @app.route('/admin/posts/<postId>')
 @login_required
 def postView(postId):
-    if 'username' in session:
-        post = sesh.query(posts).filter(posts.id == postId).first()
-        return render_template('postView.html', post = post)
-    return redirect(url_for('admin'))
+    post = sesh.query(posts).filter(posts.id == postId).first()
+    return render_template('postView.html', post = post)
 
 @app.route('/admin/posts/<postId>/delete')
 @login_required
 def postDelete(postId):
-    if 'username' in session:
-        post = sesh.query(posts).get(postId)
-        sesh.delete(post)
-        sesh.commit()
-        return redirect(url_for('admin'))
+    post = sesh.query(posts).get(postId)
+    sesh.delete(post)
+    sesh.commit()
     return redirect(url_for('admin'))
 
 @app.route('/admin/users/remove/<username>')
@@ -306,9 +320,7 @@ def removeUser(username):
     u = sesh.query(user).filter(user.username == username).first()
     sesh.delete(u)
     sesh.commit()
-    if username == session['username']:
-        return(redirect(url_for('logout')))
-    return redirect(url_for('admin'))
+    return(redirect(url_for('logout')))
 
 @app.route('/logout')
 @login_required
